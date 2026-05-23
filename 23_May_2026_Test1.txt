@@ -52,24 +52,3 @@ select e.name from Employees e join Department d on e.dept_id = d.dept_id where 
 
 -- 25. [JOINS] Find all employees who report to 'Charlie'.
 select e.name as Employee_name from Employees e join Employees m on e.manager_id = m.emp_id where m.name = 'Charlie';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
