@@ -1,0 +1,43 @@
+Q1. db.students.find({ dept: "CS", marks: { $gt: 80 } })
+
+Q2. db.students.find({ marks: { $gte: 60, $lte: 85 } })
+
+Q3. db.students.find({ dept: { $in: ["IT", "ECE"] } })
+
+Q4. db.students.find({ dept: { $nin: ["CS"] } }, { name: 1, dept: 1, _id: 0 })
+
+Q5. 
+
+Q6. db.students.find({ "address.city": "Chennai" })
+
+Q7. db.students.aggregate([
+  {
+    $group: {
+      _id: "$dept",
+      totalStudents: { $sum: 1 },
+      avgMarks: { $avg: "$marks" }
+    }
+  }
+])
+
+Q8. db.students.updateMany({}, { $unset: { scholarship: "" } })
+
+Q9. db.students.updateMany({ dept: "CS" }, { $set: { scholarship: false } })
+
+Q10. db.students.updateOne({ _id: 6 }, { $inc: { marks: 10 } })
+
+Q11.
+
+Q12. db.employees.find({ salary: { $gt: 50000 }, experience: { $gt: 5 } })
+
+Q13. db.employees.find({ skills: { $size: 3 } })
+
+Q14. 
+
+Q15. 
+
+Q16. db.employees.updateMany({}, { $rename: { city: "location" } })
+
+Q17. db.products.find({ stock: { $type: "number" } })
+
+Q18. db.students.updateMany({ active: false }, { $set: { active: true } })
