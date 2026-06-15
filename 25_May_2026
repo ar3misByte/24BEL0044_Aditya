@@ -1,0 +1,40 @@
+se vit
+switched to db vit
+show dbs
+admin   40.00 KiB
+config  36.00 KiB
+local   68.00 KiB
+vit      8.00 KiB
+use vit
+already on db vit
+db.createCollection('student')
+
+{ ok: 1 }
+
+db.student.insert({name:'Aditya', class:'2nd'})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6a2fda741d11c327be6ce595')
+  }
+}
+db.student.insert({name:'Dhanush', area:'Kerala', value:12})
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6a2fdaa71d11c327be6ce596')
+  }
+}
+db.student.find()
+{
+  _id: ObjectId('6a2fda741d11c327be6ce595'),
+  name: 'Aditya',
+  class: '2nd'
+}
+{
+  _id: ObjectId('6a2fdaa71d11c327be6ce596'),
+  name: 'Dhanush',
+  area: 'Kerala',
+  value: 12
+}
