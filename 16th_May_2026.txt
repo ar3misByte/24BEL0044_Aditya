@@ -1,0 +1,56 @@
+create database vitcampus;
+
+use vitcampus;
+
+create table cse (
+	sid BIGINT,
+	sname VARCHAR(20),
+	smarks TINYINT,
+	attendance REAL,
+	cgpa INT
+);
+
+create table mech (
+	sid VARCHAR(100),
+	sname VARCHAR(20),
+	smarks TINYINT,
+	attendance INT,
+	cgpa BIGINT
+);
+
+create table eee (
+	sid BIGINT,
+	sname VARCHAR(20),
+	smarks TINYINT,
+	attendance INT,
+	cgpa BIGINT
+);
+
+INSERT INTO CSE VALUES
+(101, 'Kiran', 99, 95, 9.1),
+(102, 'Rahul', 88, 90, 8.2),
+(103, 'Aman', 76, 85, 7.5),
+(104, 'Sneha', 92, 96, 9.4),
+(105, 'Priya', 81, 89, 8.0);
+
+INSERT INTO Mech VALUES
+(201, 'Arjun', 79, 84, 7.1),
+(202, 'Vikram', 85, 88, 8.0),
+(203, 'Rohit', 91, 93, 8.9),
+(204, 'Deepak', 73, 80, 6.8),
+(205, 'Karthik', 87, 90, 8.3);
+
+INSERT INTO EEE VALUES
+(301, 'Anjali', 94, 97, 9.5),
+(302, 'Pooja', 82, 87, 7.9),
+(303, 'Nikhil', 78, 83, 7.2),
+(304, 'Varun', 89, 91, 8.6),
+(305, 'Meena', 93, 95, 9.2);
+
+show tables;
+
+select * from cse;
+select * from mech;
+select * from eee;
+
+

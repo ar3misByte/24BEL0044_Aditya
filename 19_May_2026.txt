@@ -1,0 +1,59 @@
+show databases;
+use vitcampus;
+
+select * from workers;
+
+drop table workers;
+
+select * from workers where dept='admin' and salary>10000;
+select * form workers where dept='admin' or salary>100000;
+
+select * from workers where work_id=1 or work_id=4;
+select * from workers where work_id in (1, 2, 3);
+select * from workers where work_id not in (1, 2, 3);
+select * from workers where salary between 10000 and 200000;
+select * from workers where salary not between 10000 and 200000;
+select * from workers where salary between 10000 and 200000 and dept in ('hr');
+select * from workers where salary between 10000 and 200000 and dept not in ('admin');
+
+drop table workers;
+
+create table workers (
+	work_id int primary key,
+	fname varchar(20),
+	lname varchar(20),
+	sal int,
+	jdate datetime,
+	dept char(10)
+	);
+
+select * from workers;
+desc workers;
+
+insert into workers (work_id, fname, lname, sal, jdate, dept) values 
+(1, 'Rohan', 'Sharma', 120000, '2015-03-15 10:30:00', 'IT'),
+(2, 'Ananya', 'Iyer', 95000, '2016-07-19 14:15:00', 'Finance'),
+(3, 'Kabir', 'Mehta', 310000, '2015-03-15 11:00:00', 'IT'),
+(4, 'Aditi', 'Joshi', 450000, '2015-05-22 09:45:00', 'Finance'),
+(5, 'Arjun', 'Kapoor', 520000, '2016-07-19 15:30:00', 'Finance'),
+(6, 'Meera', 'Nair', 180000, '2017-01-10 10:00:00', 'Marketing'),
+(7, 'Yash', 'Patel', 85000, '2014-11-05 08:45:00', 'Marketing'),
+(8, 'Dia', 'Reddy', 110000, '2018-09-12 11:15:00', 'Finance');
+
+select * from workers where fname like '__a%';
+select * from workers where fname like 'R%h_';
+select * from workers where fname like '_e__%';
+select * from workers where lname like '%_r%';
+
+select max(sal) from workers;
+select count(sal) from workers where dept='Finance';
+select avg(sal) from workers where dept='Marketing';
+
+select sal from workers union select sal from workers;
+
+select work_id as No from workers;
+select distinct(dept) from workers;
+
+create view maxSalForIT as select max(sal) from workers where dept='IT';
+
+select * from maxSalForIT;

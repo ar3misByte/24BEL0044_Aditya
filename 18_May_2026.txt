@@ -1,0 +1,79 @@
+show databases;
+show tables;
+show tables from vitcampus;
+
+select * from cse;
+select * from mech;
+select * from eee;
+
+desc cse;
+
+alter table cse add (
+	newdep varchar(5)
+);
+
+alter table cse drop column newdep;
+
+alter table cse add (
+	cont VARCHAR(20) DEFAULT 'India'
+);
+
+select * from cse;
+
+desc cse;
+
+delete from eee;
+
+select * from eee;
+
+rename table eee to ecse;
+
+show tables;
+
+create table workers (
+	work_id INT NOT NULL PRIMARY KEY,
+	first_name VARCHAR(20),
+	last_name VARCHAR(20),
+	salary int,
+	jdate date,
+	dept varchar(20)
+);
+
+insert into workers
+(work_id,first_name,last_name,salary,jdate,dept)
+values
+(1,'Monika','Arora',100000,'2014-02-20 09:00:00','HR'),
+(2,'Niharika','Verma',80000,'2014-06-11 09:00:00','Admin'),
+(3,'Vishal','Singhal',300000,'2014-02-20 09:00:00','HR'),
+(4,'Amitabh','Singh',500000,'2014-02-20 09:00:00','Admin'),
+(5,'Vivek','Bhati',500000,'2014-06-11 09:00:00','Admin'),
+(6,'Vipul','Diwan',200000,'2014-06-11 09:00:00','Account'),
+(7,'Satish','Kumar',75000,'2014-01-20 09:00:00','Account'),
+(8,'Geetika','Chauhan',90000,'2014-04-11 09:00:00','Admin');
+
+select * from workers;
+
+update workers set first_name='Adi', last_name='D' where work_id=1;
+
+delete from workers where work_id=8;
+
+select * from workers;
+
+start transaction;
+commit;
+
+update edit set name='Admin' where id='5';
+savepoint a;
+insert into edit values (12, 'Deepak');
+savepoint b;
+insert into edit values (2, 'Engima');
+savepoint c;
+
+select * from edit;
+rollback to b;
+select * from edit;
+commit;
+
+select * from workers where dept='HR';
+select * from workers where dept!='Admin';
+select * from workers where salary>=190000;
