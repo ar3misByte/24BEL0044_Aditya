@@ -1,0 +1,319 @@
+db.product.insertMany([
+	{
+		_id: 1,
+		name: 'xphone',
+		price: 799,
+		releasedate: new Date('2011-05-14'),
+		spec: {
+			ram: 4,
+			screen: 6.5,
+			cpu: 2.66
+		},
+		color: ['white', 'black'],
+		storage: [64, 128, 256]
+	},
+	{
+		_id: 2,
+		name: 'xtablet',
+		price: 899,
+		releasedate: new Date('2011-09-01'),
+		spec: {
+			ram: 16,
+			screen: 9.5,
+			cpu: 3.66
+		},
+		color: ['white', 'black', 'purple'],
+		storage: [128, 256, 512]
+	},
+	{
+		_id: 3,
+		name: 'smarttablet',
+		price: 899,
+		releasedate: new Date('2015-01-14'),
+		spec: {
+			ram: 12,
+			screen: 9.7,
+			cpu: 3.66
+		},
+		color: ['blue'],
+		storage: [16, 64, 128]
+	},
+	{
+		_id: 4,
+		name: 'smartpad',
+		price: 699,
+		releasedate: new Date('2020-05-14'),
+		spec: {
+			ram: 8,
+			screen: 9.7,
+			cpu: 1.66
+		},
+		color: ['white', 'orange', 'gold', 'gray'],
+		storage: [128, 256, 1024]
+	},
+	{
+		_id: 5,
+		name: 'smartphone',
+		price: 599,
+		releasedate: new Date('2022-09-14'),
+		spec: {
+			ram: 4,
+			screen: 5.7,
+			cpu: 1.66
+		},
+		color: ['white', 'orange', 'gold', 'gray'],
+		storage: [128, 256]
+	},
+	{
+		_id: 6,
+		name: 'xwidget',
+		spec: {
+			ram: 64,
+			screen: 9.7,
+			cpu: 3.66
+		},
+		color: ['black'],
+		storage: [1024]
+	}
+]);
+
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': 1,
+    '1': 2,
+    '2': 3,
+    '3': 4,
+    '4': 5,
+    '5': 6
+  }
+}
+
+db.product.find({price: {$eq: 899}}, {name: 1, price: 1});
+{
+  _id: 2,
+  name: 'xtablet',
+  price: 899
+}
+{
+  _id: 3,
+  name: 'smarttablet',
+  price: 899
+}
+
+db.product.find({'spec.ram': {$eq: 4}}, {name: 1, 'spec.ram': 1});
+{
+  _id: 1,
+  name: 'xphone',
+  spec: {
+    ram: 4
+  }
+}
+{
+  _id: 5,
+  name: 'smartphone',
+  spec: {
+    ram: 4
+  }
+}
+db.product.find({color: {$eq: 'black'}}, {name: 1, color: 1});
+{
+  _id: 1,
+  name: 'xphone',
+  color: [
+    'white',
+    'black'
+  ]
+}
+{
+  _id: 2,
+  name: 'xtablet',
+  color: [
+    'white',
+    'black',
+    'purple'
+  ]
+}
+{
+  _id: 6,
+  name: 'xwidget',
+  color: [
+    'black'
+  ]
+}
+db.product.find({releasedate: {$eq: new Date('2020-05-14')}}, {name: 1, releasedate: 1});
+{
+  _id: 4,
+  name: 'smartpad',
+  releasedate: 2020-05-14T00:00:00.000Z
+}
+db.product.find({price: {$nin: [699, 799]}}, {name: 1, price: 1});
+{
+  _id: 2,
+  name: 'xtablet',
+  price: 899
+}
+{
+  _id: 3,
+  name: 'smarttablet',
+  price: 899
+}
+{
+  _id: 5,
+  name: 'smartphone',
+  price: 599
+}
+{
+  _id: 6,
+  name: 'xwidget'
+}
+db.product.find({color: {$nin: ['black', 'white']}}, {name: 1, color: 1});
+{
+  _id: 3,
+  name: 'smarttablet',
+  color: [
+    'blue'
+  ]
+}
+db.product.find({color: {$nin: [/^g+/, /^w+/]}}, {name: 1, color: 1});
+{
+  _id: 3,
+  name: 'smarttablet',
+  color: [
+    'blue'
+  ]
+}
+{
+  _id: 6,
+  name: 'xwidget',
+  color: [
+    'black'
+  ]
+}
+db.product.find({$and: [{price: 899}, {color: {$in: ['white', 'black']}}]}, {name: 1, price: 1, color: 1});
+{
+  _id: 2,
+  name: 'xtablet',
+  price: 899,
+  color: [
+    'white',
+    'black',
+    'purple'
+  ]
+}
+db.product.find({$and: [{price: 699}, {price: {$exists: true}}]}, {name: 1, price: 1});
+{
+  _id: 4,
+  name: 'smartpad',
+  price: 699
+}
+db.product.find({price: {$eq: 699, $exists: true}}, {name: 1, price: 1});
+{
+  _id: 4,
+  name: 'smartpad',
+  price: 699
+}
+db.product.find({$or: [{price: 799}, {price: 899}]}, {name: 1, price: 1});
+{
+  _id: 1,
+  name: 'xphone',
+  price: 799
+}
+{
+  _id: 2,
+  name: 'xtablet',
+  price: 899
+}
+{
+  _id: 3,
+  name: 'smarttablet',
+  price: 899
+}
+db.product.find({price: {$in: [799, 899]}}, {name: 1, price: 1});
+{
+  _id: 1,
+  name: 'xphone',
+  price: 799
+}
+{
+  _id: 2,
+  name: 'xtablet',
+  price: 899
+}
+{
+  _id: 3,
+  name: 'smarttablet',
+  price: 899
+}
+db.product.find({$or: [{price: {$lt: 699}}, {price: {$gt: 799}}]}, {name: 1, price: 1});
+{
+  _id: 2,
+  name: 'xtablet',
+  price: 899
+}
+{
+  _id: 3,
+  name: 'smarttablet',
+  price: 899
+}
+{
+  _id: 5,
+  name: 'smartphone',
+  price: 599
+}
+db.product.find({$nor: [{price: 899}, {color: 'gold'}]}, {name: 1, price: 1, color: 1});
+{
+  _id: 1,
+  name: 'xphone',
+  price: 799,
+  color: [
+    'white',
+    'black'
+  ]
+}
+{
+  _id: 6,
+  name: 'xwidget',
+  color: [
+    'black'
+  ]
+}
+db.product.find({price: {$not: {$gt: 699}}}, {name: 1, price: 1});
+{
+  _id: 4,
+  name: 'smartpad',
+  price: 699
+}
+{
+  _id: 5,
+  name: 'smartphone',
+  price: 599
+}
+{
+  _id: 6,
+  name: 'xwidget'
+}
+db.product.find({price: {$lte: 699}}, {name: 1, price: 1});
+{
+  _id: 4,
+  name: 'smartpad',
+  price: 699
+}
+{
+  _id: 5,
+  name: 'smartphone',
+  price: 599
+}
+db.product.find({name: {$not: /^smart+/}}, {name: 1});
+{
+  _id: 1,
+  name: 'xphone'
+}
+{
+  _id: 2,
+  name: 'xtablet'
+}
+{
+  _id: 6,
+  name: 'xwidget'
+}
