@@ -1,0 +1,99 @@
+use vitcampus;
+
+create table persons(
+	id int not null,
+	lname varchar(20) unique not null,
+	fname varchar(20) not null,
+	age int
+);
+
+desc persons;
+
+insert into persons values(201,'sharma','amit',null);
+insert into persons values(202,'verma','rohit',21);
+insert into persons values(203,'singh','neha',20);
+
+select * from persons;
+
+alter table persons add unique (age);
+alter table persons drop constraint age;
+
+desc persons;
+
+create table person(
+	id int not null,
+	lname varchar(20) unique not null,
+	fname varchar(20) not null,
+	age int not null,
+	check(age>=18 and age<=25)
+);
+
+insert into person values(301,'patel','hardik',22);
+insert into person values(302,'das','joy',15);
+
+select * from person;
+
+create table per (
+	id int not null,
+	lname varchar(20) not null,
+	fname varchar(20),
+	age int
+);
+
+insert into per values(11,'nair','gautam',16);
+alter table per add check(age>=18);
+
+desc per;
+
+insert into per values(12,'rao','srinivas',24);
+insert into per values(13,'joshi','aniket',17);
+
+select * from per;
+
+drop table persons;
+
+create table persons(
+	id int not null,
+	lname varchar(20) unique not null,
+	fname varchar(20),
+	age int,
+	city varchar(20) default 'Mumbai'
+);
+
+desc persons;
+
+create table prod(
+	pid int primary key,
+	pname varchar(20) not null,
+	prefno int unique not null
+);
+
+desc prod;
+
+insert into prod values(601,'appliances',987654);
+insert into prod values(602,'clothing',876543);
+
+alter table prod add primary key(pid);
+alter table prod drop primary key;
+
+drop table prod;
+
+create table cat(
+	catid int primary key,
+	catname varchar(20) not null,
+);
+
+insert into cat values(701, 'books'), (702, 'manga');
+
+create table prod(
+	prodid int primary key,
+	prodname varchar(20) not null,
+	catid int,
+	foreign key (catid) references cat(catid)
+);
+
+desc prod;
+
+insert into product values(801,'textbook',701),(802,'novel',701),(803,'racket',702);
+
+select * from product;
