@@ -1,34 +1,55 @@
-# models/user_model.py
-from pydantic import BaseModel, EmailStr, Field
+"""User data model used by the CLI."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from datetime import datetime, timezone
 from typing import List, Optional
 
-class GoalSchema(BaseModel):
-    goal_title: str = Field(..., example="Complete 5 RPGs this month")
-    target_metric: str = Field(..., example="5 Games")
-    is_completed: bool = False
 
-class CustomCollectionSchema(BaseModel):
-    collection_name: str = Field(..., example="Games to Play During Summer")
-    game_ids: List[str] = []
+def utc_now() -> datetime:
+    return datetime.now(timezone.utc)
 
-class UserSchema(BaseModel):
-    username: str = Field(..., min_length=3, max_length=20)
-    email: EmailStr
-    global_gamer_score: int = 0
-    custom_collections: List[CustomCollectionSchema] = []
-    goals: List[GoalSchema] = []
 
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "username": "GamerForgeX",
-                "email": "player1@gameforge.com",
-                "global_gamer_score": 0,
-                "custom_collections": [
-                    {"collection_name": "100% Completion Goals", "game_ids": []}
-                ],
-                "goals": [
-                    {"goal_title": "Reach 50 gaming hours", "target_metric": "50 Hours", "is_completed": False}
-                ]
-            }
+@dataclass
+class UserCreate:
+    username: str
+    email: str
+    favorite_platform: str = "Unknown"
+    favorite_genres: Optional[List[str]] = None
+    playstyles: Optional[List[str]] = None
+    bio: str = ""
+
+    def to_document(self) -> dict:
+        now = utc_now()
+        return {
+            "username": self.username.strip(),
+            "email": self.email.strip().lower(),
+            "favorite_platform": self.favorite_platform.strip() or "Unknown",
+            "favorite_genres": self.favorite_genres or [],
+            "playstyles": self.playstyles or [],
+            "bio": self.bio.strip(),
+            "created_at": now,
+            "updated_at": now,
         }
+
+
+@dataclass
+class UserUpdate:
+    username: Optional[str] = None
+    email: Optional[str] = None
+    favorite_platform: Optional[str] = None
+    favorite_genres: Optional[List[str]] = None
+    playstyles: Optional[List[str]] = None
+    bio: Optional[str] = None
+
+    def to_update(self) -> dict:
+        payload = {
+            "username": self.username.strip() if isinstance(self.username, str) else self.username,
+            "email": self.email.strip().lower() if isinstance(self.email, str) else self.email,
+            "favorite_platform": self.favorite_platform.strip() if isinstance(self.favorite_platform, str) else self.favorite_platform,
+            "favorite_genres": self.favorite_genres,
+            "playstyles": self.playstyles,
+            "bio": self.bio.strip() if isinstance(self.bio, str) else self.bio,
+        }
+        return {key: value for key, value in payload.items() if value is not None}
